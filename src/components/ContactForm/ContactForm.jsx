@@ -4,22 +4,34 @@
 
 
 import { useCreateContactMutation } from 'redux/contactsApi';
+import {  useSelector } from 'react-redux';
 import styles from './ContactForm.module.css'
 
-export default function ContactForm() {
 
-  const [addContact, {isLoading}] = useCreateContactMutation();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-      const name = event.currentTarget.elements.name.value;
-  const number = event.currentTarget.elements.number.value;
-    event.currentTarget.reset();
-    
-    addContact({ name,  number });
-    
-   console.log(addContact);
-  };
+
+export default function ContactForm (){
+     const token = useSelector(state => state.auth.token);
+  const [newContact, { isLoading }] = useCreateContactMutation();
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  const name = e.currentTarget.elements.name.value;
+  const number = e.currentTarget.elements.number.value;
+
+  e.currentTarget.reset();
+  try {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    };
+
+    await newContact({ name, number }, { headers });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
     return (
         
@@ -50,4 +62,4 @@ export default function ContactForm() {
      </div>
     
     )
-}
+    }

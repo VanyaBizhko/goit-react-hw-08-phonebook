@@ -1,17 +1,23 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const getTokenFromState = (state) => {
+  if (state && state.auth && state.auth.token) {
+    return state.auth.token;
+  }
+  return null;
+};
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com',
-     prepareHeaders: (headers, { getState }) => {
-      const token = getState().token;
-      
+    prepareHeaders: (headers, { getState }) => {
+      const token = getTokenFromState(getState());
+
+ 
       if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        console.log(token); 
+        headers.set('Authorization', `Bearer ${token}`);
       }
-      console.log(token); 
+
       return headers;
     },
   }),

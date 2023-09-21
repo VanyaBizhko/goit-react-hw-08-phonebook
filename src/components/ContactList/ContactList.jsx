@@ -2,11 +2,11 @@
 import { useSelector } from 'react-redux';
 
 import {  getFilter } from 'redux/selectors';
-import { useDeleteContactMutation, useFetchContactQuery } from 'redux/contactsApi';
+import { useDeleteContactMutation, useGetContactByNameQuery } from 'redux/contactsApi';
 import styles from './ContactList.module.css'
 
 export default function ContactList() {
-  const { data } = useFetchContactQuery();
+  const { data } = useGetContactByNameQuery();
   const[deleteContact, { isLoading}] = useDeleteContactMutation()
    const filter = useSelector(getFilter);
   const getFilteredContacts = () => {

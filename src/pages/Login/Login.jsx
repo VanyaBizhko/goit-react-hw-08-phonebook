@@ -1,29 +1,36 @@
-import { startTransition } from "react";
+
+import { useDispatch } from "react-redux";
+import { setUserAndToken } from "redux/authSlice";
 import { useLoginMutation } from "redux/contactsApi";
 
 
 
 
  const Login = () => {
-   const [login, { isLoading , isUninitialized  }] = useLoginMutation();
-  
-  
-    const handleLogin = async (e) => {
-      e.preventDefault();
-      
-      const email = e.currentTarget.elements.login.value;
-      const password = e.currentTarget.elements.password.value;
+      const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
 
-      try {
-  
-        startTransition(() => {
-          login({ email, password }); 
-        });
-      } catch (error) {
-        console.error(error);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const email = e.currentTarget.elements.login.value;
+    const password = e.currentTarget.elements.password.value;
+
+    try {
+   
+      const response = await login({ email, password });
+
+      if (response.data) {
+        const { user, token } = response.data;
+
+        dispatch(setUserAndToken({ user, token }));
+      } else {
+       
       }
-    };
-console.log(isUninitialized);
+    } catch (error) {
+      console.error(error);
+    }
+  };
     return (
       <form onSubmit={handleLogin}>
         <label>

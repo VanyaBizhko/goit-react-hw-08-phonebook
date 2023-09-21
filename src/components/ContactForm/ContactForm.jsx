@@ -1,13 +1,14 @@
 
-import { useAddContactMutation} from 'redux/contactsApi';
+// import { useAddContactMutation} from 'redux/contactsApi';
 
 
 
+import { useCreateContactMutation } from 'redux/contactsApi';
 import styles from './ContactForm.module.css'
 
 export default function ContactForm() {
 
-  const [addContact, {isLoading}] = useAddContactMutation();
+  const [addContact, {isLoading}] = useCreateContactMutation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();

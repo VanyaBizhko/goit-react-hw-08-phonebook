@@ -1,37 +1,87 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://64f8b3b9824680fd217ff512.mockapi.io/' }),
-  tagTypes: ['Contact'],
-  endpoints: (builder) => ({
-    fetchContact: builder.query({
-      query: () => `/contacts`,
-      providesTags: ['Contact']
-    }),
-    deleteContact: builder.mutation({
-      query: contactID => ({
-        url: `/contacts/${contactID}`,
-        method: 'DELETE',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://connections-api.herokuapp.com',
+     prepareHeaders: (headers, { getState }) => {
+      const token = getState().token;
       
-      }),
-      invalidatesTags: ['Contact'],
-    }),
-    addContact: builder.mutation({
-      query: newContact => ({
-        url: `/contacts`,
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+        console.log(token); 
+      }
+      console.log(token); 
+      return headers;
+    },
+  }),
+  tagTypes: ['Contact'],
+  endpoints: builder => ({
+   
+    login: builder.mutation({
+      query: (newUser) => ({
+        url: '/users/login', 
         method: 'POST',
         body: {
-          name: newContact.name,
-          number: newContact.number,
-          
+          email: newUser.email,
+          password: newUser.password,
+      
         },
+        
+      }),
+    }),
+
    
+    register: builder.mutation({
+      query: newContact => ({
+    url: '/users/signup',
+    method: 'POST',
+    body: {
+      name: newContact.name,
+      email: newContact.email, 
+      password: newContact.password,
+    },
+  }),
+  invalidatesTags: ['Contact'],
+    }),
+
+   
+    getContactByName: builder.query({
+      query: () => '/contacts',
+      providesTags: ['Contact'],
+    }),
+    deleteContact: builder.mutation({
+      query: contactId => ({
+        url: `/contacts/${contactId}`,
+        method: 'DELETE',
       }),
       invalidatesTags: ['Contact'],
-    })
-  })
-})
-  export const { useFetchContactQuery, useDeleteContactMutation, useAddContactMutation } = contactsApi;
+    }),
+    createContact: builder.mutation({
+      query: newContact => ({
+    url: '/contacts',
+    method: 'POST',
+    body: {
+      name: newContact.name,
+      number:newContact.number,
+    },
+  }),
+  invalidatesTags: ['Contact'],
+}),
+     logout: builder.mutation({
+      query: () => ({
+        url: '/logout', 
+        method: 'POST', 
+       }),
+       }),
+  }),
+});
 
-
+export const {
+  useGetContactByNameQuery,
+  useDeleteContactMutation,
+  useCreateContactMutation,
+  useLoginMutation, 
+  useRegisterMutation,
+  useLogoutMutation,
+} = contactsApi;

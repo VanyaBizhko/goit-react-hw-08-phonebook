@@ -6,6 +6,8 @@
 import { useCreateContactMutation } from 'redux/contactsApi';
 import {  useSelector } from 'react-redux';
 import styles from './ContactForm.module.css'
+import ContactList from 'components/ContactList/ContactList';
+import Filter from 'components/Filter/Filter';
 
 
 
@@ -58,7 +60,9 @@ export default function ContactForm (){
          <button className={styles.button} type="submit" disabled={isLoading}>
           {isLoading ? 'Loading...': 'Add Contact'}
          </button>
-       </form>
+        </form>
+        <Filter />
+        <ContactList/>
      </div>
     
     )

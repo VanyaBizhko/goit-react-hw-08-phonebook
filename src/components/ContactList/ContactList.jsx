@@ -17,6 +17,7 @@ export default function ContactList() {
     );
   };
    const filteredContacts = getFilteredContacts();
+
     return (
         <div>
             <ul>

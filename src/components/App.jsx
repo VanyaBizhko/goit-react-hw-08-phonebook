@@ -8,7 +8,7 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './Layout/Layout';
 import Login from 'pages/Login/Login';
 import Register from 'pages/Register/Register';
-import UserMenu from './UserMenu/UserMenu';
+// import UserMenu from './UserMenu/UserMenu';
 // import ContactList from './ContactList/ContactList';
 import ContactForm from './ContactForm/ContactForm';
 import { useGetContactByNameQuery } from 'redux/contactsApi';
@@ -27,7 +27,7 @@ const App = () => {
          {/* <Route path='list' element={<ContactList />} />
          <Route path="filter" element={<Filter />} /> */}
         </Route> 
-        <Route path='menu'element={<UserMenu/>}></Route>
+        {/* <Route path='menu'element={<UserMenu/>}></Route> */}
         
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />

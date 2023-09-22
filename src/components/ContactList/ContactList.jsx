@@ -7,21 +7,23 @@ import styles from './ContactList.module.css'
 
 export default function ContactList() {
   const { data } = useGetContactByNameQuery();
-  const[deleteContact, { isLoading}] = useDeleteContactMutation()
-   const filter = useSelector(getFilter);
+  const [deleteContact, { isLoading }] = useDeleteContactMutation();
+  const filter = useSelector(getFilter);
+
   const getFilteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
 
-    return data.filter((data) =>
-      data.name.toLowerCase().includes(normalizedFilter)
-    );
+    return data ? data.filter((contact) =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    ) : [];
   };
-   const filteredContacts = getFilteredContacts();
+
+  const filteredContacts = getFilteredContacts();
 
     return (
         <div>
             <ul>
-        {filteredContacts.map((contact) => (
+        {data && filteredContacts.map((contact) => (
     <li className={styles.item} key={contact.id}>
             <p>{contact.name}: </p>
             <p>{contact.number}</p> <button

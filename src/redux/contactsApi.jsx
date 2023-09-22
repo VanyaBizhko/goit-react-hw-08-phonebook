@@ -68,9 +68,10 @@ export const contactsApi = createApi({
     url: '/contacts',
     method: 'POST',
     body: {
-      name: newContact.name,
-      number:newContact.number,
-    },
+          name: newContact.name,
+          number: newContact.number,
+          
+        },
   }),
   invalidatesTags: ['Contact'],
 }),

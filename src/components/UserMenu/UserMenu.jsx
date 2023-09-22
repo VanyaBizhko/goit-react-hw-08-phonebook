@@ -1,17 +1,21 @@
-import { useLogoutMutation } from "redux/contactsApi";
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUserAndToken } from 'redux/authSlice';
 
 
 const UserMenu = () => {
-  const [logout] = useLogoutMutation();
+   
+    const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user); 
 
-  const handleLogout = () => {
-
-    logout();
+ const handleLogout = () => {
+    
+    dispatch(clearUserAndToken());
   };
+
 
   return (
     <div>
-      <p>mango@mail.com</p>
+      {user && <p>{user.name}</p>} 
       <button type="button" onClick={handleLogout}>
         Logout
       </button>

@@ -7,11 +7,11 @@ const UserMenu = () => {
     const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user); 
 
- const handleLogout = () => {
-    
+  const handleLogout = () => {
+    // При виході з системи очищаємо токен із сторінки Redux і локального сховища
     dispatch(clearUserAndToken());
-  };
 
+  };
 
   return (
     <div>

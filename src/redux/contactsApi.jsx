@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
+import { setUserAndToken } from './authSlice';
 const getTokenFromState = (state) => {
   if (state && state.auth && state.auth.token) {
     return state.auth.token;
@@ -22,19 +22,20 @@ export const contactsApi = createApi({
     },
   }),
   tagTypes: ['Contact'],
-  endpoints: builder => ({
-   
+    endpoints: builder => ({
     login: builder.mutation({
       query: (newUser) => ({
-        url: '/users/login', 
+        url: '/users/login',
         method: 'POST',
         body: {
           email: newUser.email,
           password: newUser.password,
-      
         },
-        
       }),
+      onSuccess: (response, { dispatch }) => {
+        const { user, token } = response.data;
+        dispatch(setUserAndToken({ user, token }));
+      },
     }),
 
    
@@ -80,11 +81,18 @@ export const contactsApi = createApi({
         url: '/logout', 
         method: 'POST', 
        }),
+     }),
+     refreshingUser: builder.mutation({
+      query: () => ({
+        url: '/users/current', 
+        method: 'Get', 
+       }),
        }),
   }),
 });
 
 export const {
+  useRefreshingUserMutation,
   useGetContactByNameQuery,
   useDeleteContactMutation,
   useCreateContactMutation,

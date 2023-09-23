@@ -10,7 +10,7 @@ import { contactsApi } from './contactsApi';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
+  whitelist: ['token'],
 };
 
 const persistedReducer = persistReducer(persistConfig, authSlice);

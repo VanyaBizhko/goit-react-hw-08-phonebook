@@ -1,5 +1,5 @@
 import { startTransition } from 'react';
-import { useRegisterMutation } from 'redux/contactsApi';
+import { useRegisterMutation } from 'redux/contacts/contactsSlice';
 
 
 const Register = () => {

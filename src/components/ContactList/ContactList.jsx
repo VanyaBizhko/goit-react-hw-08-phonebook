@@ -1,8 +1,8 @@
 
 import { useSelector } from 'react-redux';
 
-import {  getFilter } from 'redux/selectors';
-import { useDeleteContactMutation, useGetContactByNameQuery } from 'redux/contactsApi';
+import {  getFilter } from 'redux/auth/selectors';
+import { useDeleteContactMutation, useGetContactByNameQuery } from 'redux/contacts/contactsSlice';
 import styles from './ContactList.module.css'
 
 export default function ContactList() {

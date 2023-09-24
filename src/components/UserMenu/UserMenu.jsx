@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { clearUserAndToken } from 'redux/authSlice';
+import { clearUserAndToken } from 'redux/auth/authSlice';
 
 
 const UserMenu = () => {
@@ -7,11 +7,11 @@ const UserMenu = () => {
     const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user); 
 
- const handleLogout = () => {
-    
+  const handleLogout = () => {
+    // При виході з системи очищаємо токен із сторінки Redux і локального сховища
     dispatch(clearUserAndToken());
-  };
 
+  };
 
   return (
     <div>

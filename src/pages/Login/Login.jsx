@@ -1,7 +1,7 @@
 
 import { useDispatch } from "react-redux";
-import { setUserAndToken } from "redux/authSlice";
-import { useLoginMutation } from "redux/contactsApi";
+import { setUserAndToken } from "redux/auth/authSlice";
+import { useLoginMutation } from "redux/contacts/contactsSlice";
 
 
 
@@ -16,16 +16,18 @@ import { useLoginMutation } from "redux/contactsApi";
     const email = e.currentTarget.elements.login.value;
     const password = e.currentTarget.elements.password.value;
 
-    try {
-   
+     try {
+      // Вызывайте функцию login и дождитесь ответа
       const response = await login({ email, password });
 
       if (response.data) {
         const { user, token } = response.data;
 
+        // После успешной аутентификации сохраните пользователя и токен в состоянии Redux
         dispatch(setUserAndToken({ user, token }));
+        // localStorage.setItem('token', token);
       } else {
-       
+        // Обработка ошибки аутентификации
       }
     } catch (error) {
       console.error(error);

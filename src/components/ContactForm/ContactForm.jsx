@@ -62,7 +62,7 @@ export const ContactForm = () => {
         />
       </Label>
 
-      <Button type="submit" variant="contained">
+      <Button type="submit" variant="contained" color="success">
         Add contact
       </Button>
     </Form>

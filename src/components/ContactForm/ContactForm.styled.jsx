@@ -5,7 +5,7 @@ export const Form = styled.form`
   flex-direction: column;
   width: 300px;
   padding: 20px;
-  border: 2px solid #1976d2;
+  border: 2px solid #097600;
 `;
 
 export const Label = styled.label`

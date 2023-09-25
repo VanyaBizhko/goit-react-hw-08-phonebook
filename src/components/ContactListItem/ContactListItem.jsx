@@ -17,7 +17,7 @@ export const ContactListItem = ({ id, name, number }) => {
           {name}: <span>{number}</span>
         </Text>
       </Wrap>
-      <Button type="button" onClick={handleDelete} variant="contained">
+      <Button type="button" onClick={handleDelete} variant="contained" color="error">
         Delete
       </Button>
     </Item>

@@ -10,5 +10,5 @@ export const Container = styled.div`
   margin-right: auto;
   align-items: center;
   margin-bottom: 16px;
-  border-bottom: 2px solid #1976d2;
+  border-bottom: 2px solid #097600;
 `;

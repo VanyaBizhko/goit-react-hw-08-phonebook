@@ -52,7 +52,7 @@ export const RegisterForm = () => {
           required
         />
       </Label>
-      <Button variant="contained" type="submit">
+      <Button type="submit" variant="contained" color="success">
         Register
       </Button>
     </Form>

@@ -15,6 +15,7 @@ export const UserMenu = () => {
         type="button"
         onClick={() => dispatch(logOut())}
         variant="contained"
+        color="error"
       >
         Logout
       </Button>

@@ -41,7 +41,7 @@ export const LoginForm = () => {
           required
         />
       </Label>
-      <Button variant="contained" type="submit">
+      <Button type="submit" variant="contained" color="success">
         Log In
       </Button>
     </Form>

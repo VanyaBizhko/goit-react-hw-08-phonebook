@@ -4,7 +4,7 @@ import  {PrivateRoute}  from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
 
 import { useAuth } from 'hooks/useAuth';
-import Layout from './Layout/Layout';
+import {Layout} from './Layout/Layout';
 import { lazy, useEffect } from 'react';
 import { refreshUser } from 'redux/auth/operations';
 import { useDispatch } from 'react-redux';

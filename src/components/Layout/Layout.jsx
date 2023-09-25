@@ -1,16 +1,15 @@
-import AppBar from 'components/AppBar/AppBar';
-import {Outlet} from 'react-router-dom';
+import { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
+import { AppBar } from 'components/AppBar/AppBar';
+import { Spinner } from 'components/Loader/Loader';
 
-const Layout = () => {
-
-  
+export const Layout = () => {
   return (
-     <div>
-     <AppBar/>
-      <main >
+    <div>
+      <AppBar />
+      <Suspense fallback={<Spinner />}>
         <Outlet />
-      </main>
+      </Suspense>
     </div>
   );
 };
-export default Layout;

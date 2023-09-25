@@ -1,26 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { clearUserAndToken } from 'redux/auth/authSlice';
+import { useDispatch } from 'react-redux';
+import { logOut } from 'redux/auth/operations';
+import { useAuth } from 'hooks/useAuth';
+import { Wrap } from './UserMenu.styled';
+import { Button } from '@mui/material';
 
-
-const UserMenu = () => {
-   
-    const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user); 
-
-  const handleLogout = () => {
-    // При виході з системи очищаємо токен із сторінки Redux і локального сховища
-    dispatch(clearUserAndToken());
-
-  };
+export const UserMenu = () => {
+  const dispatch = useDispatch();
+  const { user } = useAuth();
 
   return (
-    <div>
-      {user && <p>{user.name}</p>} 
-      <button type="button" onClick={handleLogout}>
+    <Wrap>
+      <p>Welcome, {user.name}</p>
+      <Button
+        type="button"
+        onClick={() => dispatch(logOut())}
+        variant="contained"
+      >
         Logout
-      </button>
-    </div>
+      </Button>
+    </Wrap>
   );
 };
-
-export default UserMenu;

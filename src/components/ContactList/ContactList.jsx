@@ -1,40 +1,33 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from 'redux/contacts/operations';
+import {
+  selectFilteredContacts,
+  selectIsLoading,
+  selectError,
+} from 'redux/contacts/selectors';
+import { ContactListItem } from 'components/ContactListItem/ContactListItem';
+import { List } from './ContactList.styled';
 
-import { useSelector } from 'react-redux';
+export const ContactList = () => {
+  const dispatch = useDispatch();
+  const filteredContacts = useSelector(selectFilteredContacts);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
-import {  getFilter } from 'redux/auth/selectors';
-import { useDeleteContactMutation, useGetContactByNameQuery } from 'redux/contacts/contactsSlice';
-import styles from './ContactList.module.css'
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
-export default function ContactList() {
-  const { data } = useGetContactByNameQuery();
-  const [deleteContact, { isLoading }] = useDeleteContactMutation();
-  const filter = useSelector(getFilter);
-
-  const getFilteredContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-
-    return data ? data.filter((contact) =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    ) : [];
-  };
-
-  const filteredContacts = getFilteredContacts();
-
-    return (
-        <div>
-            <ul>
-        {data && filteredContacts.map((contact) => (
-    <li className={styles.item} key={contact.id}>
-            <p>{contact.name}: </p>
-            <p>{contact.number}</p> <button
-     className={styles.button} 
-        onClick={() => deleteContact(contact.id)}
-      >{isLoading ? 'Deleting...': 'Delete'}
-       
-      </button>
-    </li>
-  ))}
-      </ul>
-        </div>
-    );
-}
+  return (
+    <>
+      {isLoading && !error && <p>Request in progress...</p>}
+      {error && <p>An error occurred!</p>}
+      <List>
+        {filteredContacts.map(({ id, name, number }) => (
+          <ContactListItem key={id} id={id} name={name} number={number} />
+        ))}
+      </List>
+    </>
+  );
+};

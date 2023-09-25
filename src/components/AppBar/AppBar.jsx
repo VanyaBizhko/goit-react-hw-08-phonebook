@@ -1,4 +1,4 @@
-import UserMenu from "components/UserMenu/UserMenu";
+import {UserMenu} from "components/UserMenu/UserMenu";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 

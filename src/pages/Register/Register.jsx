@@ -1,45 +1,11 @@
-import { startTransition } from 'react';
-import { useRegisterMutation } from 'redux/contacts/contactsSlice';
+import { RegisterForm } from 'components/RegisterForm/RegisterForm';
+import { Container, Title } from './Register.styled';
 
-
-const Register = () => {
-  const [register, { isLoading }] = useRegisterMutation();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const name = e.currentTarget.elements.name.value;
-    const email = e.currentTarget.elements.login.value;
-    const password = e.currentTarget.elements.password.value;
-
-    try {
-      
-      startTransition(() => {
-        register({ name, email, password });
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+export default function Register() {
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name
-        <input name="name" placeholder="User name..."></input>
-      </label>
-      <label>
-        Login
-        <input name="login" type='email'></input>
-      </label>
-      <label>
-        Password
-        <input name="password" type='password'></input>
-      </label>
-      <button type="submit" disabled={isLoading}>
-        {isLoading ? 'Registering...' : 'Register'}
-      </button>
-    </form>
+    <Container>
+      <Title>Registration</Title>
+      <RegisterForm />
+    </Container>
   );
-};
-
-export default Register;
+}

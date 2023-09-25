@@ -1,18 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getFilter } from 'redux/auth/selectors';
+import { selectFilter } from 'redux/filter/selectors';
 import { setFilter } from 'redux/filter/filterSlice';
-import styles from './Filter.module.css'
+import { Wrap, FilterLabel, Text } from './Filter.styled';
+import { TextField } from '@mui/material';
 
-export default function Filter() {
-    const filter = useSelector(getFilter);
+export const Filter = () => {
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   const handleChange = event =>
     dispatch(setFilter(event.currentTarget.value.trim()));
-    return (
-        <div className={styles.section}>
-            <h3>Find contacts by name</h3>
-            <input type="text" value={filter} onChange={handleChange}/>
-        </div>
-    )
-    }
+
+  return (
+    <Wrap>
+      <FilterLabel>
+        <Text>Find contacts by name</Text>
+        <TextField type="text" value={filter} onChange={handleChange} />
+      </FilterLabel>
+    </Wrap>
+  );
+};

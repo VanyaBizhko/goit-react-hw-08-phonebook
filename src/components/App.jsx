@@ -7,32 +7,21 @@ import { RestrictedRoute } from './RestrictedRoute';
 
 import { useAuth } from 'hooks';
 import Layout from './Layout/Layout';
-
-import { Spinner } from './Loader';
-import { useDispatch } from 'react-redux';
-import { useEffect, lazy  } from 'react';
-import { refreshUser } from 'redux/auth/operations';
-
+import Login from 'pages/Login/Login';
+import Register from 'pages/Register/Register';
+// import UserMenu from './UserMenu/UserMenu';
+// import ContactList from './ContactList/ContactList';
+import ContactForm from './ContactForm/ContactForm';
+import { useGetContactByNameQuery } from 'redux/contactsApi';
 
 // import UserMenu from './UserMenu/UserMenu';
 
-const HomePage = lazy(() => import('../pages/Home'));
-const RegisterPage = lazy(() => import('../pages/Register'));
-const LoginPage = lazy(() => import('../pages/Login'));
-const ContactsPage = lazy(() => import('../pages/Contacts'));
 
-export const App = () => {
-  const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
-
-  useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
+const App = () => {
+  const { data } = useGetContactByNameQuery();
 
 
-  return isRefreshing ? (
-    <Spinner />
-  ) : (
+  return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />

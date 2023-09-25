@@ -1,6 +1,6 @@
 
 import { Routes, Route } from 'react-router-dom';
-import { PrivateRoute } from './PrivateRoute';
+import  {PrivateRoute}  from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
 
 import { useAuth } from 'hooks/useAuth';
